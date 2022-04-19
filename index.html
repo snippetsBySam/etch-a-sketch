@@ -7,7 +7,17 @@
     </head>
     <body>
         <h1>Etch-a-Sketch</h1>
-        <button id="redraw">Change grid size</button>
+        <div>
+            <button id="redraw">Change grid size</button>
+            <button id="reset">Reset Canvas</button>
+        </div>
+        <br/>
+        <div>
+            <label for="colorWell">Pick Colour:</label>
+            <input type="color" value="#ff0000" id="colorWell">
+            <button id="random">Randomise</button>
+        </div>
+        
         <div id="container"></div>
         <script src="scripts/main.js"></script>
     </body>

@@ -2,11 +2,27 @@ let defaultCanvasHeight = 600;
 let defaultCanvasWidth = 600;
 let gridGap = 1;
 let defaultColor = "#FFFFFF";
-let drawColor = "#0000FF";
+let drawColor = "random";
+let newGridSize = 16;
 const redrawButton = document.querySelector("#redraw");
+const resetButton = document.querySelector("#reset");
+const randomButton = document.querySelector("#random");
+randomButton.addEventListener("click", () => drawColor = "random");
+const colorWell = document.querySelector("#colorWell");
+colorWell.addEventListener("input", updateColor, false);
 
-function randomColor() {
-    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+
+function getColor() {
+    if (drawColor === "random") {
+        return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+    } else {
+        return drawColor;
+    }
+    
+}
+
+function updateColor(event) {
+    drawColor = event.target.value;
 }
 
 // Create grid function
@@ -34,7 +50,7 @@ function createDivGrid(gridlength) {
         const square = document.createElement('div');
         square.setAttribute("class", "grid");
         square.setAttribute("style", `background-color: ${defaultColor}; width:${squareWidth}px; height:${squareHeight}px;`);
-        square.addEventListener("mouseenter", function(e) {e.target.style.backgroundColor = randomColor();})
+        square.addEventListener("mouseenter", function(e) {e.target.style.backgroundColor = getColor();})
         subDiv.appendChild(square);
     }
     const parentDiv = container.parentNode;
@@ -43,11 +59,12 @@ function createDivGrid(gridlength) {
 }
 
 function customGrid() {
-    let newGridSize = prompt("Enter a new Grid size");
+    newGridSize = prompt("Enter a new Grid size");
     createDivGrid(newGridSize);
 }
 redrawButton.addEventListener('click', customGrid)
-createDivGrid(16);
+resetButton.addEventListener('click', () => createDivGrid(newGridSize))
+createDivGrid(newGridSize);
 //square.document.createElement('div')
 //squares = Array(16).fill(square);
 //container.append(subDiv);
